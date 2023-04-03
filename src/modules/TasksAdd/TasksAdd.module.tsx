@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, MouseEvent } from 'react';
+import React, { ChangeEvent, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Controller, useForm } from 'react-hook-form';
@@ -11,9 +11,6 @@ import { PATH_LIST } from 'constants/index';
 import { TaskAddEntity } from 'domains/index';
 
 export function TasksAddModuleProto() {
-  const [taskNameValue, setTaskNameValue] = useState('');
-  const [taskDescriptionValue, setTaskDescriptionValue] = useState('');
-  const [isImportant, setIsImportant] = useState(false);
   const navigate = useNavigate();
 
   const { control, handleSubmit, setValue } = useForm<TaskAddEntity>({
@@ -24,17 +21,14 @@ export function TasksAddModuleProto() {
 
   const addTaskNameValue = (event: ChangeEvent<HTMLInputElement>) => {
     setValue('name', event.target.value);
-    console.log('Имя изменено: ', event.target.value);
   };
 
   const addTaskDescriptionValue = (event: ChangeEvent<HTMLInputElement>) => {
     setValue('info', event.target.value);
-    console.log('Описание изменено: ', event.target.value);
   };
 
   const addIsImportant = (event: ChangeEvent<HTMLInputElement>) => {
     setValue('isImportant', event.target.checked);
-    console.log('Чекбокс важности: ', event.target.checked);
   };
 
   const addIsTask = async (event: MouseEvent<HTMLButtonElement>) => {
@@ -42,7 +36,6 @@ export function TasksAddModuleProto() {
     handleSubmit(async (data) => {
       const result = await TaskAddStoreInstance.addTask(data);
       if (result) navigate(PATH_LIST.ROOT);
-      console.log('Отработал addIsTask', data);
     })();
   };
 

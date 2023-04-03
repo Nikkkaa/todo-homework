@@ -1,4 +1,4 @@
-import React, { MouseEvent, ChangeEvent, useEffect } from 'react';
+import React, { MouseEvent, ChangeEvent, useEffect, useCallback, memo } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -46,14 +46,14 @@ function TaskEditModuleProto() {
     setValue('isDone', event.target.checked);
   };
 
-  const changeIsTask = async (event: MouseEvent<HTMLButtonElement>) => {
+  const changeIsTask = useCallback(async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     handleSubmit(async (data) => {
       const result = await TaskEditStoreInstance.editTask(data);
       if (result) navigate(PATH_LIST.ROOT);
       console.log('Отработал changeIsTask', data);
     })();
-  };
+  }, []);
 
   const isDone = watch('isDone');
   const isImportant = watch('isImportant');
