@@ -55,8 +55,8 @@ function TaskEditModuleProto() {
     })();
   }, []);
 
-  const isDone = watch('isDone');
-  const isImportant = watch('isImportant');
+  const isDone = watch('isImportant');
+  const isImportant = watch('isDone');
 
   return (
     <>
@@ -98,7 +98,7 @@ function TaskEditModuleProto() {
                 label="Важная"
                 containerClassName="edit-checkbox"
                 onChange={changeIsImportant}
-                disabled={isDone}
+                disabled={isImportant}
                 checked={field.value}
               />
             )}></Controller>
@@ -111,7 +111,7 @@ function TaskEditModuleProto() {
                 label="Выполненная"
                 containerClassName="edit-checkbox"
                 onChange={changeIsDone}
-                disabled={isImportant}
+                disabled={isDone}
                 checked={field.value}
               />
             )}></Controller>
