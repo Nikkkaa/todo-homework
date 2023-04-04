@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent } from 'react';
+import React, { ChangeEvent, MouseEvent, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Controller, useForm } from 'react-hook-form';
@@ -31,13 +31,13 @@ export function TasksAddModuleProto() {
     setValue('isImportant', event.target.checked);
   };
 
-  const addIsTask = async (event: MouseEvent<HTMLButtonElement>) => {
+  const addIsTask = useCallback(async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     handleSubmit(async (data) => {
       const result = await TaskAddStoreInstance.addTask(data);
       if (result) navigate(PATH_LIST.ROOT);
     })();
-  };
+  }, []);
 
   return (
     <>

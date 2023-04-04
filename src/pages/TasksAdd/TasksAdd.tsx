@@ -1,5 +1,4 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { PageContainer } from 'components/index';
 import { TasksAddModule } from 'modules/index';
 

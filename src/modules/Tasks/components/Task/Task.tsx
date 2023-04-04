@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { TaskProps } from './Task.types';
 import { EDIT, ROOT } from 'constants/index';
 import './Task.css';
 
-export function Task({ task, deleteTask, changeTaskDone, changeTaskImportant }: TaskProps) {
+function TaskProto({ task, deleteTask, changeTaskDone, changeTaskImportant }: TaskProps) {
   const { name, info, isImportant, isDone, id } = task;
 
   const onButtonImportantClick = () => changeTaskImportant(id, isImportant);
@@ -62,3 +62,5 @@ export function Task({ task, deleteTask, changeTaskDone, changeTaskImportant }: 
     </div>
   );
 }
+
+export const Task = memo(TaskProto);
