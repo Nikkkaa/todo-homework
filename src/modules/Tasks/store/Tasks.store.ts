@@ -50,30 +50,34 @@ class TaskStore {
   // Загружаем таски
   loadTasks = async (searchForm?: SearchFormEntity) => {
     this._isTasksLoading = true;
-
     this._tasks = TasksMock;
     this._tasksStats = TasksStatsMock;
+
     await delay(1500);
 
     this._isTasksLoading = false;
   };
 
   // Важная таска
-  changeTaskImportant = (taskId: TaskEntity['id'], currentStatus: boolean) => {
+  changeTaskImportant = async (taskId: TaskEntity['id'], currentStatus: boolean) => {
     this._isTasksLoading = true;
 
-    console.log('Важная: ', taskId, !currentStatus);
+    const idTask = TasksMock.findIndex((mock) => mock.id === taskId);
+    TasksMock[idTask].isImportant = !currentStatus;
 
-    this.loadTasks();
+    console.log('Важная: ', taskId, !currentStatus);
+    await this.loadTasks();
   };
 
   // Выполненная таска
-  changeTaskDone = (taskId: TaskEntity['id'], currentStatus: boolean) => {
+  changeTaskDone = async (taskId: TaskEntity['id'], currentStatus: boolean) => {
     this._isTasksLoading = true;
 
-    console.log('Выполненная: ', taskId, !currentStatus);
+    const idTask = TasksMock.findIndex((mock) => mock.id === taskId);
+    TasksMock[idTask].isDone = !currentStatus;
 
-    this.loadTasks();
+    console.log('Выполненная: ', taskId, !currentStatus);
+    await this.loadTasks();
   };
 
   // Удаляем таску
