@@ -1,6 +1,6 @@
 import { FILTER_TYPES } from 'constants/SearchFilterTypes';
 import { SearchFormEntity, TaskEditEntity, TaskEntity, TasksStatsEntity } from 'domains/index';
-import { GetAllTasksQuery, GetAllTasksResponse, GetTaskResponse } from 'http/model';
+import { GetAllTasksQuery, GetAllTasksResponse, GetTaskResponse } from 'http/model/index';
 
 export const mapToExternalParam = (params?: SearchFormEntity): GetAllTasksQuery | undefined => {
   if (!params) return undefined;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { TaskStoreInstance } from 'modules/Tasks/store';
+import { TaskStoreInstance } from 'modules/Tasks/store/index';
 import { Loader } from 'components/index';
 
 export function TasksStatsProto() {

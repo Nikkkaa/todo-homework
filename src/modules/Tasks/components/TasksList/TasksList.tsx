@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Task } from '../Task';
 import { Loader } from 'components/index';
-import { TaskStoreInstance } from 'modules/Tasks/store';
+import { TaskStoreInstance } from 'modules/Tasks/store/index';
 import './TasksList.css';
 
 export function TasksListProto() {

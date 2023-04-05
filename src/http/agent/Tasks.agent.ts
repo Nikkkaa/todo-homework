@@ -7,7 +7,7 @@ import {
   ChangeTaskRequest,
   CreateTaskResponse,
   CreateTaskRequest,
-} from 'http/model';
+} from 'http/model/index';
 
 class TaskAgent extends BasicAgent {
   constructor() {
