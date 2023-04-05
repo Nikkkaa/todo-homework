@@ -43,7 +43,7 @@ function TaskEditModuleProto() {
   };
 
   const changeIsDone = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue('isDone', event.target.checked);
+    setValue('isCompleted', event.target.checked);
   };
 
   const changeIsTask = useCallback(async (event: MouseEvent<HTMLButtonElement>) => {
@@ -56,7 +56,7 @@ function TaskEditModuleProto() {
   }, []);
 
   const isDone = watch('isImportant');
-  const isImportant = watch('isDone');
+  const isImportant = watch('isCompleted');
 
   return (
     <>
@@ -105,7 +105,7 @@ function TaskEditModuleProto() {
 
           <Controller
             control={control}
-            name="isDone"
+            name="isCompleted"
             render={({ field }) => (
               <Checkbox
                 label="Выполненная"
@@ -117,7 +117,7 @@ function TaskEditModuleProto() {
             )}></Controller>
 
           <button className="btn btn-secondary d-block ml-auto w-100" type="submit" onClick={changeIsTask}>
-            Edit task
+            Изменить задачу
           </button>
         </Loader>
       </form>

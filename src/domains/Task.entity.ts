@@ -5,7 +5,7 @@ export interface TaskEntity {
   id: string;
   info: string;
   isImportant: boolean;
-  isDone: boolean;
+  isCompleted: boolean;
 }
 
 export interface TasksStatsEntity {
@@ -25,7 +25,7 @@ export interface TaskEditEntity {
   name: string;
   info: string;
   isImportant: boolean;
-  isDone: boolean;
+  isCompleted: boolean;
 }
 
 export interface TaskAddEntity {

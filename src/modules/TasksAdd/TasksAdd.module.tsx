@@ -76,7 +76,7 @@ export function TasksAddModuleProto() {
           )}></Controller>
         <button className="btn btn-secondary d-block ml-auto w-100" onClick={addIsTask}>
           <Loader isLoading={TaskAddStoreInstance.isTasksLoading} variant="circle">
-            Add task
+            Добавить задачу
           </Loader>
         </button>
       </form>

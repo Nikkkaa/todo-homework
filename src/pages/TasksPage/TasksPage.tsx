@@ -10,7 +10,7 @@ export function TasksPage() {
       <h1 className="text-center">TODO LIST</h1>
       <Tasks />
       <Link className="btn btn-secondary d-block ml-auto" to={PATH_LIST.ADD}>
-        Add task
+        Добавить задачу
       </Link>
     </PageContainer>
   );

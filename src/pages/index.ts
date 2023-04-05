@@ -1,3 +1,3 @@
 export * from './TasksPage';
-export * from './TasksEdit';
-export * from './TasksAdd';
+export * from './TasksEditPage';
+export * from './TasksAddPage';

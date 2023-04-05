@@ -23,7 +23,7 @@ export const mapToExternalTaskChange = (task: GetTaskResponse): TaskEditEntity =
     name: task.name || 'Неизвестно',
     info: task.info || 'Неизвестно',
     isImportant: task.isImportant || false,
-    isDone: task.isCompleted || false,
+    isCompleted: task.isCompleted || false,
   };
 };
 
@@ -37,7 +37,7 @@ export const mapToExternalTasks = (tasks: GetAllTasksResponse): TaskEntity[] => 
         name: task.name || 'Неизвестно',
         info: task.info || 'Неизвестно',
         isImportant: task.isImportant || false,
-        isDone: task.isCompleted || false,
+        isCompleted: task.isCompleted || false,
       });
     }
   });

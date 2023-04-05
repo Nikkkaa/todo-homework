@@ -45,7 +45,7 @@ class TaskEditStore {
     name: '',
     info: '',
     isImportant: false,
-    isDone: false,
+    isCompleted: false,
   };
 
   set taskForm(value: TaskEditEntity | null) {
