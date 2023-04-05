@@ -9,8 +9,8 @@ import { FiltersTypeEntity } from 'domains/index';
 import './SearchForm.css';
 
 function SearchFormProto() {
-  const { isTasksLoading, loadTasks } = TaskStoreInstance;
-  const { control, reset, setValue, handleSubmit } = useForm({
+  const { isTasksLoading, updateTask } = TaskStoreInstance;
+  const { control, setValue, handleSubmit } = useForm({
     defaultValues: DEFAULT_SEARCH,
   });
 
@@ -26,10 +26,10 @@ function SearchFormProto() {
     setValue('searchValue', '');
   };
 
-  const submitHandler = async (evt: MouseEvent<HTMLButtonElement>) => {
+  const submitHandler = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
-    handleSubmit(async (dataTasks) => {
-      await loadTasks(dataTasks);
+    handleSubmit((dataTasks) => {
+      updateTask(dataTasks);
       // reset();
     })();
   };

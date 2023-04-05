@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeObservable, observable, action, computed } from 'mobx';
-import { TaskEditEntity } from 'domains/index';
-import { TasksMock } from '__mocks__/index';
-import { delay } from 'helpers/index';
+import { TaskAddEntity, TaskEditEntity } from 'domains/index';
+import { mapToExternalTaskChange } from 'helpers/index';
+import { TaskAgentInstance } from 'http/agent/index';
 
 type PrivateFields = '_taskId' | '_taskForm' | '_isTasksLoading';
 
@@ -37,53 +37,53 @@ class TaskEditStore {
   set taskId(value: string | null) {
     this._taskId = value;
   }
-
   get taskId(): string | null {
     return this._taskId;
   }
 
-  _taskForm: TaskEditEntity = {
+  _taskForm: TaskEditEntity | null = {
     name: '',
     info: '',
     isImportant: false,
     isDone: false,
   };
 
-  set taskForm(value: TaskEditEntity) {
+  set taskForm(value: TaskEditEntity | null) {
     this._taskForm = value;
   }
 
-  get taskForm(): TaskEditEntity {
+  get taskForm(): TaskEditEntity | null {
     return this._taskForm;
   }
 
+  // Получаем таску по id
   getTask = async () => {
-    const changeMockID = TasksMock.findIndex((mock) => mock.id === this.taskId);
-
     this._isTasksLoading = true;
-    await delay(2000);
-    this._taskForm = TasksMock[changeMockID];
-
-    this._isTasksLoading = false;
+    try {
+      if (!this._taskId) throw new Error();
+      const result = await TaskAgentInstance.getTask(this.taskId);
+      this._taskForm = mapToExternalTaskChange(result);
+    } catch {
+      this._taskForm = null;
+    } finally {
+      this._isTasksLoading = false;
+    }
   };
 
-  editTask = async (task: TaskEditEntity) => {
-    const changeMockID = TasksMock.findIndex((mock) => mock.id === this.taskId);
-
+  // изменяем таску
+  editTask = async (task: TaskAddEntity): Promise<boolean> => {
     this._isTasksLoading = true;
-    await delay(3000);
 
-    if (this._taskId) {
-      TasksMock[changeMockID] = {
-        id: this._taskId,
-        name: task.name,
-        info: task.info,
-        isImportant: task.isImportant,
-        isDone: task.isDone,
-      };
+    try {
+      if (!this._taskId) throw new Error();
+      await TaskAgentInstance.updateTask(this._taskId, task);
+
+      return true;
+    } catch {
+      return false;
+    } finally {
+      this._isTasksLoading = false;
     }
-    this._isTasksLoading = false;
-    return true;
   };
 }
 

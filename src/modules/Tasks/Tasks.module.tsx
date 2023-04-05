@@ -5,7 +5,7 @@ import { TaskStoreInstance } from './store';
 
 function TasksModuleProto() {
   useEffect(() => {
-    TaskStoreInstance.loadTasks();
+    TaskStoreInstance.updateTask();
   }, []);
 
   return (

@@ -1,7 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 import { TaskAddEntity } from 'domains/index';
-import { delay } from 'helpers/index';
-import { TasksMock } from '__mocks__/index';
+import { TaskAgentInstance } from 'http/agent/index';
 
 type PrivateFields = '_isTasksLoading';
 
@@ -21,18 +20,13 @@ class TaskAddStore {
   }
 
   addTask = async (task: TaskAddEntity) => {
-    this._isTasksLoading = true;
-    await delay(1000);
+    try {
+      await TaskAgentInstance.createTask(task);
 
-    TasksMock.push({
-      id: `${Date.now()}`,
-      name: task.name,
-      info: task.info,
-      isImportant: task.isImportant,
-      isDone: false,
-    });
-    this._isTasksLoading = false;
-    return true;
+      return true;
+    } catch {
+      return false;
+    }
   };
 }
 export const TaskAddStoreInstance = new TaskAddStore();

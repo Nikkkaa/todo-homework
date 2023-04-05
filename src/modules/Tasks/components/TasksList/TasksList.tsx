@@ -11,19 +11,23 @@ export function TasksListProto() {
   return (
     <div className="tasks-wrapper d-flex align-items-center justify-content-center">
       <Loader isLoading={isTasksLoading}>
-        <ul className="list-group todo-list mb-3">
-          {tasks.map((task) => (
-            <li key={task.id} className="list-group-item">
-              <Task
-                key={task.id}
-                task={task}
-                changeTaskImportant={changeTaskImportant}
-                changeTaskDone={changeTaskDone}
-                deleteTask={deleteTask}
-              />
-            </li>
-          ))}
-        </ul>
+        {tasks?.length ? (
+          <ul className="list-group todo-list mb-3">
+            {tasks.map((task) => (
+              <li key={task.id} className="list-group-item">
+                <Task
+                  key={task.id}
+                  task={task}
+                  changeTaskImportant={changeTaskImportant}
+                  changeTaskDone={changeTaskDone}
+                  deleteTask={deleteTask}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Задачи не найдены</p>
+        )}
       </Loader>
     </div>
   );

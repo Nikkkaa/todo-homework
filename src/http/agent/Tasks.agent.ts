@@ -21,13 +21,13 @@ class TaskAgent extends BasicAgent {
     return data;
   }
 
-  async getTask(taskId: string): Promise<GetTaskResponse> {
+  async getTask(taskId: string | null): Promise<GetTaskResponse> {
     const { data } = await this._http.get<GetTaskResponse>(`/tasks/${taskId}`);
 
     return data;
   }
 
-  async changeTask(taskId: string, changedData: ChangeTaskRequest): Promise<ChangeTaskResponse> {
+  async updateTask(taskId: string, changedData: ChangeTaskRequest): Promise<ChangeTaskResponse> {
     const { data } = await this._http.patch<ChangeTaskResponse>(`/tasks/${taskId}`, changedData);
 
     return data;

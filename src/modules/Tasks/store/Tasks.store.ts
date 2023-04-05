@@ -1,10 +1,10 @@
 import React from 'react';
 import { computed, makeObservable, observable, action } from 'mobx';
 import { SearchFormEntity, TaskEntity, TasksStatsEntity } from 'domains/index';
-import { TasksMock, TasksStatsMock } from '__mocks__/Tasks.mock';
-import { delay } from 'helpers/index';
+import { getInternalStats, mapToExternalParam, mapToExternalTasks } from 'helpers/index';
+import { TaskAgentInstance } from 'http/agent/index';
 
-type PrivateFields = '_tasks' | '_tasksStats' | '_isTasksLoading';
+type PrivateFields = '_tasks' | '_tasksStats' | '_isTasksLoading' | '_searchForm';
 
 class TaskStore {
   constructor() {
@@ -12,13 +12,14 @@ class TaskStore {
       _tasks: observable,
       _tasksStats: observable,
       _isTasksLoading: observable,
+      _searchForm: observable,
 
       tasks: computed,
       isTasksLoading: computed,
 
-      changeTaskDone: action,
-      loadTasks: action,
+      updateTask: action,
       changeTaskImportant: action,
+      changeTaskDone: action,
       deleteTask: action,
     });
   }
@@ -30,63 +31,114 @@ class TaskStore {
   }
 
   // геттер тасок
-  private _tasks: TaskEntity[] = [];
+  private _tasks: TaskEntity[] | null = [];
 
-  get tasks(): TaskEntity[] {
+  get tasks(): TaskEntity[] | null {
     return this._tasks;
   }
 
   // геттер статистики
-  private _tasksStats: TasksStatsEntity = {
+  private _tasksStats: TasksStatsEntity | null = {
     total: 0,
     important: 0,
     done: 0,
   };
 
-  get tasksStats(): TasksStatsEntity {
+  get tasksStats(): TasksStatsEntity | null {
     return this._tasksStats;
   }
 
-  // Загружаем таски
-  loadTasks = async (searchForm?: SearchFormEntity) => {
+  private _searchForm?: SearchFormEntity = {
+    searchValue: '',
+    filterType: 'Все',
+  };
+
+  // Получаем все таски
+  getTasks = async (searchForm?: SearchFormEntity) => {
+    const externalSearchParam = mapToExternalParam(searchForm);
+    const result = await TaskAgentInstance.getAllTasks(externalSearchParam);
+    return {
+      tasks: mapToExternalTasks(result),
+      tasksStats: getInternalStats(result),
+    };
+  };
+
+  // Обновляем таски
+  updateTask = async (searchForm?: SearchFormEntity) => {
     this._isTasksLoading = true;
-    this._tasks = TasksMock;
-    this._tasksStats = TasksStatsMock;
+    try {
+      if (searchForm) this._searchForm = searchForm;
 
-    await delay(1500);
+      const { tasks, tasksStats } = await this.getTasks(this._searchForm);
 
-    this._isTasksLoading = false;
+      this._tasks = tasks;
+      this._tasksStats = tasksStats;
+    } catch {
+      this._tasks = null;
+      this._tasksStats = null;
+    } finally {
+      this._isTasksLoading = false;
+    }
   };
 
   // Важная таска
   changeTaskImportant = async (taskId: TaskEntity['id'], currentStatus: boolean) => {
     this._isTasksLoading = true;
+    try {
+      await TaskAgentInstance.updateTask(taskId, {
+        isImportant: !currentStatus,
+      });
 
-    const idTask = TasksMock.findIndex((mock) => mock.id === taskId);
-    TasksMock[idTask].isImportant = !currentStatus;
+      const { tasks, tasksStats } = await this.getTasks(this._searchForm);
 
-    console.log('Важная: ', taskId, !currentStatus);
-    await this.loadTasks();
+      this._tasks = tasks;
+      this._tasksStats = tasksStats;
+    } catch {
+      this._tasks = null;
+      this._tasksStats = null;
+    } finally {
+      this._isTasksLoading = false;
+    }
   };
 
   // Выполненная таска
   changeTaskDone = async (taskId: TaskEntity['id'], currentStatus: boolean) => {
     this._isTasksLoading = true;
+    try {
+      await TaskAgentInstance.updateTask(taskId, {
+        isCompleted: !currentStatus,
+        isImportant: currentStatus ? undefined : false,
+      });
 
-    const idTask = TasksMock.findIndex((mock) => mock.id === taskId);
-    TasksMock[idTask].isDone = !currentStatus;
+      const { tasks, tasksStats } = await this.getTasks(this._searchForm);
 
-    console.log('Выполненная: ', taskId, !currentStatus);
-    await this.loadTasks();
+      this._tasks = tasks;
+      this._tasksStats = tasksStats;
+    } catch {
+      this._tasks = null;
+      this._tasksStats = null;
+    } finally {
+      this._isTasksLoading = false;
+    }
   };
 
   // Удаляем таску
-  deleteTask = (taskId: TaskEntity['id']) => {
+  deleteTask = async (taskId: TaskEntity['id']) => {
     this._isTasksLoading = true;
 
-    console.log('Удаление выполнено: ', taskId);
+    try {
+      await TaskAgentInstance.deleteTask(taskId);
 
-    this.loadTasks();
+      const { tasks, tasksStats } = await this.getTasks(this._searchForm);
+
+      this._tasks = tasks;
+      this._tasksStats = tasksStats;
+    } catch {
+      this._tasks = null;
+      this._tasksStats = null;
+    } finally {
+      this._isTasksLoading = false;
+    }
   };
 }
 
