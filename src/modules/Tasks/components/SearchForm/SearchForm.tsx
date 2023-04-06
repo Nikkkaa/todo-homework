@@ -18,9 +18,9 @@ function SearchFormProto() {
     setValue('searchValue', value);
   };
 
-  const changeFilterStatusHandler = useCallback((filterStatus: FiltersTypeEntity) => {
+  const changeFilterStatusHandler = (filterStatus: FiltersTypeEntity) => {
     setValue('filterType', filterStatus);
-  }, []);
+  };
 
   const resetHandler = () => {
     setValue('searchValue', '');

@@ -1,38 +1,30 @@
 import React, { MouseEvent, memo } from 'react';
+import { ButtonGroup } from '@material-ui/core';
 import { FilterStatusProps } from './SearchFilter.types';
-import { FILTER_CLASSES } from './SearchFilter.const';
 import { FILTER_TYPES } from 'constants/index';
 import { FiltersTypeEntity } from 'domains/index';
+import { StylizedButton } from 'components/Buttons';
 
 function SearchFilterProto({ onChange, selectTypeTask, disabled }: FilterStatusProps) {
-  const onChangeFilterStatus = (evt: MouseEvent<HTMLDivElement> & { target: HTMLButtonElement }) => {
-    if (!disabled) onChange(evt.target.textContent as FiltersTypeEntity);
+  const onChangeFilterStatus = (event: MouseEvent<HTMLDivElement> & { target: HTMLButtonElement }) => {
+    if (!disabled) onChange(event.target.textContent as FiltersTypeEntity);
   };
 
   return (
-    <div className="btn-group" onClick={onChangeFilterStatus}>
-      <button
-        type="button"
-        className={selectTypeTask === FILTER_TYPES.ALL ? FILTER_CLASSES.ACTIVE : FILTER_CLASSES.SECONDARY}>
+    <ButtonGroup onClick={onChangeFilterStatus}>
+      <StylizedButton variant="contained" color={selectTypeTask === FILTER_TYPES.ALL ? 'primary' : 'inherit'}>
         {FILTER_TYPES.ALL}
-      </button>
-      <button
-        type="button"
-        className={selectTypeTask === FILTER_TYPES.ACTIVE ? FILTER_CLASSES.ACTIVE : FILTER_CLASSES.SECONDARY}>
+      </StylizedButton>
+      <StylizedButton variant="contained" color={selectTypeTask === FILTER_TYPES.ACTIVE ? 'primary' : 'inherit'}>
         {FILTER_TYPES.ACTIVE}
-      </button>
-      <button
-        type="button"
-        className={selectTypeTask === FILTER_TYPES.DONE ? FILTER_CLASSES.ACTIVE : FILTER_CLASSES.SECONDARY}>
+      </StylizedButton>
+      <StylizedButton variant="contained" color={selectTypeTask === FILTER_TYPES.DONE ? 'primary' : 'inherit'}>
         {FILTER_TYPES.DONE}
-      </button>
-      <button
-        type="button"
-        className={selectTypeTask === FILTER_TYPES.IMPORTANT ? FILTER_CLASSES.ACTIVE : FILTER_CLASSES.SECONDARY}>
+      </StylizedButton>
+      <StylizedButton variant="contained" color={selectTypeTask === FILTER_TYPES.IMPORTANT ? 'primary' : 'inherit'}>
         {FILTER_TYPES.IMPORTANT}
-      </button>
-    </div>
+      </StylizedButton>
+    </ButtonGroup>
   );
 }
-
 export const SearchFilter = memo(SearchFilterProto);

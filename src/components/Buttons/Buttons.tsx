@@ -1,10 +1,11 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
 import { ButtonsProps } from './Buttons.types';
 
-export default function Buttons({ type, className, children, onClick, onChange, onReset }: ButtonsProps) {
+export function StylizedButton({ children, onClick, onChange, onReset, variant, color }: ButtonsProps) {
   return (
-    <button type={type} className={className} onClick={onClick} onChange={onChange} onReset={onReset}>
+    <Button variant={variant} color={color} onClick={onClick} onChange={onChange} onReset={onReset}>
       {children}
-    </button>
+    </Button>
   );
 }
