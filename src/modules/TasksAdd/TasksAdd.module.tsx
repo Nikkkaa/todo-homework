@@ -1,5 +1,5 @@
 import React, { ChangeEvent, MouseEvent, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -31,13 +31,16 @@ export function TasksAddModuleProto() {
     setValue('isImportant', event.target.checked);
   };
 
-  const addIsTask = useCallback(async (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    handleSubmit(async (data) => {
-      const result = await TaskAddStoreInstance.addTask(data);
-      if (result) navigate(PATH_LIST.ROOT);
-    })();
-  }, []);
+  const addIsTask = useCallback(
+    async (event: MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      await handleSubmit(async (data) => {
+        const result = await TaskAddStoreInstance.addTask(data);
+        result ? navigate(PATH_LIST.ROOT) : navigate(PATH_LIST.ERROR);
+      })();
+    },
+    [handleSubmit, navigate]
+  );
 
   return (
     <>
@@ -74,11 +77,16 @@ export function TasksAddModuleProto() {
           render={({ field }) => (
             <Checkbox label="Важная" onChange={addIsImportant} checked={field.value} />
           )}></Controller>
+
         <button className="btn btn-secondary d-block ml-auto w-100" onClick={addIsTask}>
           <Loader isLoading={TaskAddStoreInstance.isTasksLoading} variant="circle">
             Добавить задачу
           </Loader>
         </button>
+
+        <Link to={PATH_LIST.ROOT} className="btn btn-secondary d-block ml-auto w-100 mt-3">
+          Вернутся на главную
+        </Link>
       </form>
     </>
   );

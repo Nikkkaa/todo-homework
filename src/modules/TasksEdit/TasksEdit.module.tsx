@@ -1,6 +1,6 @@
 import React, { MouseEvent, ChangeEvent, useEffect, useCallback } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { TaskEditStoreInstance } from './store';
@@ -46,14 +46,16 @@ function TaskEditModuleProto() {
     setValue('isCompleted', event.target.checked);
   };
 
-  const changeIsTask = useCallback(async (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    handleSubmit(async (data) => {
-      const result = await TaskEditStoreInstance.editTask(data);
-      if (result) navigate(PATH_LIST.ROOT);
-      console.log('Отработал changeIsTask', data);
-    })();
-  }, []);
+  const changeIsTask = useCallback(
+    async (event: MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      handleSubmit(async (data) => {
+        const result = await TaskEditStoreInstance.editTask(data);
+        result ? navigate(PATH_LIST.ROOT) : navigate(PATH_LIST.ERROR);
+      })();
+    },
+    [handleSubmit, navigate]
+  );
 
   const isDone = watch('isImportant');
   const isImportant = watch('isCompleted');
@@ -119,6 +121,10 @@ function TaskEditModuleProto() {
           <button className="btn btn-secondary d-block ml-auto w-100" type="submit" onClick={changeIsTask}>
             Изменить задачу
           </button>
+
+          <Link to={PATH_LIST.ROOT} className="btn btn-secondary d-block ml-auto w-100 mt-3">
+            Вернутся на главную
+          </Link>
         </Loader>
       </form>
     </>
