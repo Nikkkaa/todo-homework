@@ -34,7 +34,7 @@ class TaskAgent extends BasicAgent {
   }
 
   async createTask(newData: CreateTaskRequest): Promise<CreateTaskResponse> {
-    const { data } = await this._http.post<CreateTaskResponse>(`/tasфывks`, newData);
+    const { data } = await this._http.post<CreateTaskResponse>(`/tasks`, newData);
     return data;
   }
 
