@@ -1,12 +1,12 @@
-import React, { MouseEvent, useCallback } from 'react';
+import React, { MouseEvent } from 'react';
+import { Stack } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { observer } from 'mobx-react';
 import { SearchFilter } from '../SearchFilter';
 import { TaskStoreInstance } from '../../store';
 import { DEFAULT_SEARCH } from './SearchForm.const';
-import { SearchInput } from 'components/index';
+import { SearchInput, StylizedButton } from 'components/index';
 import { FiltersTypeEntity } from 'domains/index';
-import './SearchForm.css';
 
 function SearchFormProto() {
   const { isTasksLoading, updateTask } = TaskStoreInstance;
@@ -30,12 +30,11 @@ function SearchFormProto() {
     evt.preventDefault();
     handleSubmit((dataTasks) => {
       updateTask(dataTasks);
-      // reset();
     })();
   };
 
   return (
-    <form className="search-form d-flex justify-content-between">
+    <Stack direction="row" spacing={0.8} mt={2} mb={2}>
       <Controller
         control={control}
         name="searchValue"
@@ -50,10 +49,10 @@ function SearchFormProto() {
           <SearchFilter disabled={isTasksLoading} selectTypeTask={field.value} onChange={changeFilterStatusHandler} />
         )}
       />
-      <button type="submit" className="btn btn-primary" disabled={isTasksLoading} onClick={submitHandler}>
+      <StylizedButton variant="contained" color="secondary" disabled={isTasksLoading} onClick={submitHandler}>
         Найти
-      </button>
-    </form>
+      </StylizedButton>
+    </Stack>
   );
 }
 

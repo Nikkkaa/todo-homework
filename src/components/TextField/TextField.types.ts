@@ -8,4 +8,6 @@ export interface TextFieldProps {
   value?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   errorText?: string;
+  color?: 'primary' | 'secondary';
+  variant?: 'filled' | 'outlined' | 'standard';
 }
