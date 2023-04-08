@@ -33,3 +33,8 @@ export interface TaskAddEntity {
   info: string;
   isImportant: boolean;
 }
+
+export interface TaskLabelStyledProps {
+  isImportant: boolean;
+  isCompleted: boolean;
+}

@@ -63,7 +63,7 @@ function TaskEditModuleProto() {
   return (
     <>
       <form className="edit-form d-flex flex-column align-items-center justify-content-center">
-        <Loader isLoading={TaskEditStoreInstance.isTasksLoading} variant="circle">
+        <Loader isLoading={TaskEditStoreInstance.isTasksLoading}>
           <Controller
             control={control}
             name="name"

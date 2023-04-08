@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { SearchFilter } from '../SearchFilter';
 import { TaskStoreInstance } from '../../store';
 import { DEFAULT_SEARCH } from './SearchForm.const';
-import { SearchInput, StylizedButton } from 'components/index';
+import { SearchInput, ButtonStyled } from 'components/index';
 import { FiltersTypeEntity } from 'domains/index';
 
 function SearchFormProto() {
@@ -34,7 +34,7 @@ function SearchFormProto() {
   };
 
   return (
-    <Stack direction="row" spacing={0.8} mt={2} mb={2}>
+    <Stack direction="row" spacing={0.8} mt={2} mb={2} width="100%">
       <Controller
         control={control}
         name="searchValue"
@@ -49,9 +49,9 @@ function SearchFormProto() {
           <SearchFilter disabled={isTasksLoading} selectTypeTask={field.value} onChange={changeFilterStatusHandler} />
         )}
       />
-      <StylizedButton variant="contained" color="secondary" disabled={isTasksLoading} onClick={submitHandler}>
+      <ButtonStyled variant="contained" color="secondary" disabled={isTasksLoading} onClick={submitHandler}>
         Найти
-      </StylizedButton>
+      </ButtonStyled>
     </Stack>
   );
 }

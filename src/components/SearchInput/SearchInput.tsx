@@ -2,7 +2,7 @@ import React, { ChangeEventHandler, MouseEvent } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 import { IconButton } from '@material-ui/core';
 import { SearchInputProps } from './SearchInput.types';
-import { SearchInputWrapper, SearchPanel } from './SearchInput.styles';
+import { SearchInputWrapperStyled, SearchPanelStyled } from './SearchInput.styles';
 
 export function SearchInput({ onChange, value, onReset }: SearchInputProps) {
   const onSearchInputChange: ChangeEventHandler<HTMLInputElement> = (evt) => onChange(evt.target.value);
@@ -13,8 +13,8 @@ export function SearchInput({ onChange, value, onReset }: SearchInputProps) {
   };
 
   return (
-    <SearchPanel>
-      <SearchInputWrapper
+    <SearchPanelStyled>
+      <SearchInputWrapperStyled
         variant="outlined"
         placeholder="Поиск"
         onChange={onSearchInputChange}
@@ -27,6 +27,6 @@ export function SearchInput({ onChange, value, onReset }: SearchInputProps) {
           ),
         }}
       />
-    </SearchPanel>
+    </SearchPanelStyled>
   );
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import { Typography } from '@material-ui/core';
+import { StyledBox, StyledText } from './TaskStats.styles';
 import { TaskStoreInstance } from 'modules/Tasks/store/index';
 import { Loader } from 'components/index';
 
@@ -7,32 +9,34 @@ export function TasksStatsProto() {
   const { isTasksLoading, tasksStats } = TaskStoreInstance;
 
   return (
-    <div className="d-flex w-100 justify-content-between">
+    <StyledBox>
       {tasksStats ? (
         <>
-          <p>
+          <Typography variant="body1">
             Все:
-            <Loader isLoading={isTasksLoading} variant="dot">
-              <span className="badge bg-secondary">{tasksStats.total}</span>
+            <Loader isLoading={isTasksLoading}>
+              <StyledText>{tasksStats.total}</StyledText>
             </Loader>
-          </p>
-          <p>
+          </Typography>
+          <Typography variant="body1">
             Важные:
-            <Loader isLoading={isTasksLoading} variant="dot">
-              <span className="badge bg-secondary">{tasksStats.important}</span>
+            <Loader isLoading={isTasksLoading}>
+              <StyledText>{tasksStats.important}</StyledText>
             </Loader>
-          </p>
-          <p>
+          </Typography>
+          <Typography variant="body1">
             Выполненные:
-            <Loader isLoading={isTasksLoading} variant="dot">
-              <span className="badge bg-secondary">{tasksStats.done}</span>
+            <Loader isLoading={isTasksLoading}>
+              <StyledText>{tasksStats.done}</StyledText>
             </Loader>
-          </p>
+          </Typography>
         </>
       ) : (
-        <p className="d-flex justify-content-center w-100">Статистика не доступна</p>
+        <StyledBox>
+          <Typography variant="body1">Статистика не доступна</Typography>
+        </StyledBox>
       )}
-    </div>
+    </StyledBox>
   );
 }
 

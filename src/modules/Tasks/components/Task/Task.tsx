@@ -1,8 +1,13 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import CheckIcon from '@mui/icons-material/Check';
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import { TaskProps } from './Task.types';
+import { ButtonGroupStyled, ButtonStyled, TaskLabelStyled, TaskWrapperStyled } from './Task.styled';
 import { EDIT, ROOT } from 'constants/index';
-import './Task.css';
 
 function TaskProto({ task, deleteTask, changeTaskDone, changeTaskImportant }: TaskProps) {
   const { name, info, isImportant, isCompleted, id } = task;
@@ -14,52 +19,46 @@ function TaskProto({ task, deleteTask, changeTaskDone, changeTaskImportant }: Ta
   const onButtonDeleteClick = () => deleteTask(id);
 
   return (
-    <div>
-      <div className="task mb-2">
-        <p
-          className={`task__label ${isCompleted ? 'text-decoration-line-through text-secondary' : ''} ${
-            isImportant ? 'text-success fw-bold' : ''
-          }`}>
+    <>
+      <TaskWrapperStyled>
+        <TaskLabelStyled isImportant={isImportant} isCompleted={isCompleted}>
           {name}
-        </p>
+        </TaskLabelStyled>
 
-        <div className="task__btns">
-          <button
-            type="button"
-            className={`task__btn btn ${
-              isImportant ? 'btn-success' : 'btn-outline-success'
-            } btn-sm float-right btn-important`}
+        <ButtonGroupStyled>
+          <ButtonStyled
+            variant={isImportant ? 'contained' : 'outlined'}
+            color="primary"
+            size="small"
             disabled={isCompleted}
             onClick={onButtonImportantClick}>
-            <i className="fa fa-exclamation" />
-          </button>
+            <PriorityHighIcon />
+          </ButtonStyled>
 
-          <button
-            type="button"
-            className={`task__btn btn ${isCompleted ? 'btn-danger' : 'btn-outline-danger'} btn-sm float-right`}
+          <ButtonStyled
+            variant={isCompleted ? 'contained' : 'outlined'}
+            color="secondary"
+            size="small"
             onClick={onButtonDoneClick}>
-            <i className="fa fa-check" />
-          </button>
+            <CheckIcon />
+          </ButtonStyled>
 
-          <button
-            type="button"
-            className="task__btn btn btn-outline-danger btn-sm float-right btn-delete"
-            onClick={onButtonDeleteClick}>
-            <i className="fa fa-trash-o" />
-          </button>
+          <ButtonStyled variant="outlined" size="small" color="secondary" onClick={onButtonDeleteClick}>
+            <DeleteForeverIcon />
+          </ButtonStyled>
 
-          <Link className="task__btn btn btn-outline-secondary btn-sm float-right" to={`${ROOT}${EDIT}/${id}`}>
-            <i className="fa fa-pencil" />
-          </Link>
-        </div>
-      </div>
-      <p
-        className={`${isCompleted ? 'text-decoration-line-through text-secondary' : ''} ${
-          isImportant ? 'text-success fw-bold' : ''
-        }`}>
+          <ButtonStyled variant="outlined" size="small" color="primary">
+            <Link to={`${ROOT}${EDIT}/${id}`}>
+              <EditIcon color="primary" />
+            </Link>
+          </ButtonStyled>
+        </ButtonGroupStyled>
+      </TaskWrapperStyled>
+
+      <TaskLabelStyled isImportant={isImportant} isCompleted={isCompleted}>
         {info}
-      </p>
-    </div>
+      </TaskLabelStyled>
+    </>
   );
 }
 

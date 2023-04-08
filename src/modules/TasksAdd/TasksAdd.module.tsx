@@ -79,9 +79,7 @@ export function TasksAddModuleProto() {
           )}></Controller>
 
         <button className="btn btn-secondary d-block ml-auto w-100" onClick={addIsTask}>
-          <Loader isLoading={TaskAddStoreInstance.isTasksLoading} variant="circle">
-            Добавить задачу
-          </Loader>
+          <Loader isLoading={TaskAddStoreInstance.isTasksLoading}>Добавить задачу</Loader>
         </button>
 
         <Link to={PATH_LIST.ROOT} className="btn btn-secondary d-block ml-auto w-100 mt-3">
