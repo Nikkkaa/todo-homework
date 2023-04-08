@@ -1,20 +1,21 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import { Typography } from '@mui/material';
 import { Task } from '../Task';
+import { TasksListItemStyled, TasksListStyled, TasksListWrapperStyled } from './TaskList.styles';
 import { Loader } from 'components/index';
 import { TaskStoreInstance } from 'modules/Tasks/store/index';
-import './TasksList.css';
 
 export function TasksListProto() {
   const { tasks, isTasksLoading, deleteTask, changeTaskDone, changeTaskImportant } = TaskStoreInstance;
 
   return (
-    <div className="tasks-wrapper d-flex align-items-center justify-content-center">
+    <TasksListWrapperStyled>
       <Loader isLoading={isTasksLoading}>
         {tasks?.length ? (
-          <ul className="list-group todo-list mb-3">
+          <TasksListStyled>
             {tasks.map((task) => (
-              <li key={task.id} className="list-group-item">
+              <TasksListItemStyled key={task.id}>
                 <Task
                   key={task.id}
                   task={task}
@@ -22,14 +23,14 @@ export function TasksListProto() {
                   changeTaskDone={changeTaskDone}
                   deleteTask={deleteTask}
                 />
-              </li>
+              </TasksListItemStyled>
             ))}
-          </ul>
+          </TasksListStyled>
         ) : (
-          <p>Задачи не найдены</p>
+          <Typography variant="h5">Задачи не найдены</Typography>
         )}
       </Loader>
-    </div>
+    </TasksListWrapperStyled>
   );
 }
 

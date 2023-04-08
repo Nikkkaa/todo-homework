@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { Link, useNavigate } from 'react-router-dom';
 import sad_cat from 'assets/sad_cat.webp';
 import { PATH_LIST } from 'constants/index';
-import { PageContainer } from 'components/index';
+import { PageContainer } from 'components/PageContainer';
 
 function TasksErrorModuleProto() {
   const navigate = useNavigate();

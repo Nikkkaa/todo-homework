@@ -3,16 +3,16 @@ import { Box, Button, ButtonGroup } from '@material-ui/core';
 import { IconButton } from '@mui/material';
 import { TaskLabelStyledProps } from 'domains/index';
 
-export const ButtonGroupStyled = styled(ButtonGroup)`
-  min-width: 140px;
-  display: flex;
-  justify-content: space-between;
-`;
-
 export const TaskWrapperStyled = styled(Box)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const ButtonGroupStyled = styled(ButtonGroup)`
+  min-width: 140px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const TaskLabelStyled = styled.p<TaskLabelStyledProps>`
