@@ -3,10 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Stack } from '@mui/material';
 import { TaskAddStoreInstance } from './store/TasksAdd.store';
 import { DEFAULT_ADD_FORM } from './TasksAdd.const';
 import { taskAddSchema } from './TasksAdd.validation';
-import { Checkbox, Loader, TextField } from 'components/index';
+import { ButtonStyled, CheckboxStyled, LoaderStyled, TextFieldStyled } from 'components/index';
 import { PATH_LIST } from 'constants/index';
 import { TaskAddEntity } from 'domains/index';
 
@@ -43,50 +44,55 @@ export function TasksAddModuleProto() {
   );
 
   return (
-    <>
-      <form>
-        <Controller
-          control={control}
-          name="name"
-          render={({ field, fieldState: { error } }) => (
-            <TextField
-              label="Имя задачи"
-              placeholder="Напишите имя задачи"
-              value={field.value}
-              onChange={addTaskNameValue}
-              errorText={error?.message}
-            />
-          )}></Controller>
+    <Stack spacing={1}>
+      <Controller
+        control={control}
+        name="name"
+        render={({ field, fieldState: { error } }) => (
+          <TextFieldStyled
+            label="Имя задачи"
+            placeholder="Напишите имя задачи"
+            value={field.value}
+            onChange={addTaskNameValue}
+            errorText={error?.message}
+          />
+        )}></Controller>
 
-        <Controller
-          control={control}
-          name="info"
-          render={({ field, fieldState: { error } }) => (
-            <TextField
-              label="Описание задачи"
-              placeholder="Напишите описание задачи"
-              value={field.value}
-              onChange={addTaskDescriptionValue}
-              errorText={error?.message}
-            />
-          )}></Controller>
+      <Controller
+        control={control}
+        name="info"
+        render={({ field, fieldState: { error } }) => (
+          <TextFieldStyled
+            label="Описание задачи"
+            placeholder="Напишите описание задачи"
+            value={field.value}
+            onChange={addTaskDescriptionValue}
+            errorText={error?.message}
+          />
+        )}></Controller>
 
-        <Controller
-          control={control}
-          name="isImportant"
-          render={({ field }) => (
-            <Checkbox label="Важная" onChange={addIsImportant} checked={field.value} />
-          )}></Controller>
+      <Controller
+        control={control}
+        name="isImportant"
+        render={({ field }) => (
+          <CheckboxStyled color="primary" label="Важная" onChange={addIsImportant} checked={field.value} />
+        )}></Controller>
 
-        <button className="btn btn-secondary d-block ml-auto w-100" onClick={addIsTask}>
-          <Loader isLoading={TaskAddStoreInstance.isTasksLoading}>Добавить задачу</Loader>
-        </button>
+      <LoaderStyled isLoading={TaskAddStoreInstance.isTasksLoading}>
+        <ButtonStyled
+          disabled={TaskAddStoreInstance.isTasksLoading}
+          fullWidth={true}
+          variant="contained"
+          color="primary"
+          onClick={addIsTask}>
+          Добавить задачу
+        </ButtonStyled>
+      </LoaderStyled>
 
-        <Link to={PATH_LIST.ROOT} className="btn btn-secondary d-block ml-auto w-100 mt-3">
-          Вернутся на главную
-        </Link>
-      </form>
-    </>
+      <Button fullWidth={true} component={Link} to={PATH_LIST.ROOT} variant="contained" color="info">
+        Вернуться на главную
+      </Button>
+    </Stack>
   );
 }
 

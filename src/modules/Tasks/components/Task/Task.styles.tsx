@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { Box, Button, ButtonGroup } from '@material-ui/core';
-import { IconButton } from '@mui/material';
+import { Box, Button } from '@material-ui/core';
+import { IconButton, Stack } from '@mui/material';
 import { TaskLabelStyledProps } from 'domains/index';
 
 export const TaskWrapperStyled = styled(Box)`
@@ -9,7 +9,7 @@ export const TaskWrapperStyled = styled(Box)`
   align-items: center;
 `;
 
-export const ButtonGroupStyled = styled(ButtonGroup)`
+export const StackStyled = styled(Stack)`
   min-width: 140px;
   display: flex;
   justify-content: space-between;

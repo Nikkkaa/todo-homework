@@ -5,7 +5,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CheckIcon from '@mui/icons-material/Check';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import { TaskProps } from './Task.types';
-import { ButtonGroupStyled, ButtonStyled, TaskLabelStyled, TaskWrapperStyled } from './Task.styled';
+import { ButtonStyled, StackStyled, TaskLabelStyled, TaskWrapperStyled } from './Task.styles';
 import { EDIT, ROOT } from 'constants/index';
 
 function TaskProto({ task, deleteTask, changeTaskDone, changeTaskImportant }: TaskProps) {
@@ -24,7 +24,7 @@ function TaskProto({ task, deleteTask, changeTaskDone, changeTaskImportant }: Ta
           {name}
         </TaskLabelStyled>
 
-        <ButtonGroupStyled>
+        <StackStyled textAlign="left" direction="row" spacing={0.5}>
           <ButtonStyled
             variant={isImportant ? 'contained' : 'outlined'}
             color="primary"
@@ -46,12 +46,12 @@ function TaskProto({ task, deleteTask, changeTaskDone, changeTaskImportant }: Ta
             <DeleteForeverIcon />
           </ButtonStyled>
 
-          <ButtonStyled variant="outlined" size="small" color="primary">
-            <Link to={`${ROOT}${EDIT}/${id}`}>
+          <Link to={`${ROOT}${EDIT}/${id}`}>
+            <ButtonStyled variant="outlined" size="small" color="primary">
               <EditIcon color="primary" />
-            </Link>
-          </ButtonStyled>
-        </ButtonGroupStyled>
+            </ButtonStyled>
+          </Link>
+        </StackStyled>
       </TaskWrapperStyled>
 
       <TaskLabelStyled isImportant={isImportant} isCompleted={isCompleted}>

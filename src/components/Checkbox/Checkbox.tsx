@@ -1,21 +1,12 @@
 import React from 'react';
+import { Checkbox, FormControlLabel } from '@material-ui/core';
 import { CheckboxProps } from './Checkbox.types';
 
-export function Checkbox({ label, checked, onChange, disabled, containerClassName = '' }: CheckboxProps) {
+export function CheckboxStyled({ color, label, checked, onChange, disabled }: CheckboxProps) {
   return (
-    <div className={`form-check mb-3 ${containerClassName}`}>
-      <input
-        className="form-check-input"
-        type="checkbox"
-        value=""
-        id={label}
-        disabled={disabled}
-        checked={checked}
-        onChange={onChange}
-      />
-      <label className="form-check-label" htmlFor={label}>
-        {label}
-      </label>
-    </div>
+    <FormControlLabel
+      label={label}
+      control={<Checkbox color={color} checked={checked} disabled={disabled} onChange={onChange} />}
+    />
   );
 }

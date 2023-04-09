@@ -1,30 +1,24 @@
 import React from 'react';
+import { Stack } from '@mui/system';
 import { TextFieldProps } from './TextField.types';
-import './TextField.css';
+import { StyledErrorText, StyledTextField } from './TextField.styles';
 
-export function TextField({
-  label,
-  placeholder,
-  containerClassName = '',
-  inputType,
-  value,
-  onChange,
-  errorText,
-}: TextFieldProps) {
+export function TextFieldStyled({ label, placeholder, inputType, value, onChange, errorText }: TextFieldProps) {
+  const hasError = Boolean(errorText);
   return (
-    <div className={`mb-3 ${containerClassName}`}>
-      <label htmlFor={label} className="form-label">
-        {label}
-      </label>
-      <input
-        type={inputType}
-        className="form-control"
+    <Stack>
+      <StyledTextField
         id={label}
+        label={label}
+        variant="outlined"
         placeholder={placeholder}
+        type={inputType}
         value={value}
         onChange={onChange}
+        hasError={hasError}
+        error={hasError}
       />
-      {errorText && <div className="invalid">{errorText}</div>}
-    </div>
+      {errorText && <StyledErrorText>{errorText}</StyledErrorText>}
+    </Stack>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { Typography } from '@mui/material';
 import { PageContainer } from 'components/index';
 import { TaskEditModule } from 'modules/index';
 
@@ -8,7 +9,9 @@ export function TasksEdit() {
 
   return (
     <PageContainer>
-      <h1 className="text-center">TODO LIST / TODO EDIT {taskId} </h1>
+      <Typography variant="h4" align="center" mb={4}>
+        TODO LIST / TODO EDIT {taskId}
+      </Typography>
       <TaskEditModule />
     </PageContainer>
   );

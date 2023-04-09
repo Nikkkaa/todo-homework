@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { Typography } from '@mui/material';
 import { Task } from '../Task';
 import { TasksListItemStyled, TasksListStyled, TasksListWrapperStyled } from './TaskList.styles';
-import { Loader } from 'components/index';
+import { LoaderStyled } from 'components/index';
 import { TaskStoreInstance } from 'modules/Tasks/store/index';
 
 export function TasksListProto() {
@@ -11,7 +11,7 @@ export function TasksListProto() {
 
   return (
     <TasksListWrapperStyled>
-      <Loader isLoading={isTasksLoading}>
+      <LoaderStyled isLoading={isTasksLoading}>
         {tasks?.length ? (
           <TasksListStyled>
             {tasks.map((task) => (
@@ -29,7 +29,7 @@ export function TasksListProto() {
         ) : (
           <Typography variant="h5">Задачи не найдены</Typography>
         )}
-      </Loader>
+      </LoaderStyled>
     </TasksListWrapperStyled>
   );
 }

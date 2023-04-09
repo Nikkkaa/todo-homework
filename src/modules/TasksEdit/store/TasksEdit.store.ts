@@ -77,7 +77,6 @@ class TaskEditStore {
     try {
       if (!this._taskId) throw new Error();
       await TaskAgentInstance.updateTask(this._taskId, task);
-
       return true;
     } catch {
       return false;

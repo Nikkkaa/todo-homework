@@ -20,12 +20,14 @@ class TaskAddStore {
   }
 
   addTask = async (task: TaskAddEntity) => {
+    this._isTasksLoading = true;
     try {
       await TaskAgentInstance.createTask(task);
-
       return true;
     } catch {
       return false;
+    } finally {
+      this._isTasksLoading = false;
     }
   };
 }

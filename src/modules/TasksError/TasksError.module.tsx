@@ -1,9 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Button, Typography } from '@mui/material';
+import { Box, Stack } from '@mui/system';
 import sad_cat from 'assets/sad_cat.webp';
 import { PATH_LIST } from 'constants/index';
-import { PageContainer } from 'components/PageContainer';
+import { ButtonStyled, PageContainer } from 'components/index';
 
 function TasksErrorModuleProto() {
   const navigate = useNavigate();
@@ -11,17 +13,23 @@ function TasksErrorModuleProto() {
 
   return (
     <PageContainer>
-      <h1 className="text-center color-red text-danger"> УПС... Что-то пошло не так! </h1>
+      <Stack spacing={2} justifyContent="center" textAlign="center">
+        <Typography variant="h4" align="center" mb={2} color="error">
+          УПС... Что-то пошло не так!
+        </Typography>
 
-      <img src={sad_cat} className="img-fluid rounded" alt="Грустный котик"></img>
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <img src={sad_cat} width="600px" alt="Грустный котик" />
+        </Box>
 
-      <button className="btn btn-secondary d-block ml-auto w-100 mt-3" onClick={goBack}>
-        Вернуться назад
-      </button>
+        <ButtonStyled variant="contained" color="primary" onClick={goBack}>
+          Вернуться назад
+        </ButtonStyled>
 
-      <Link to={PATH_LIST.ROOT} className="btn btn-secondary d-block ml-auto w-100 mt-3">
-        Вернутся на главную
-      </Link>
+        <Button fullWidth={true} component={Link} to={PATH_LIST.ROOT} variant="contained" color="info">
+          Вернуться на главную
+        </Button>
+      </Stack>
     </PageContainer>
   );
 }

@@ -1,4 +1,4 @@
-import { FiltersTypeEntity } from 'domains/Task.entity';
+import { FiltersTypeEntity } from 'domains/index';
 
 export interface FilterStatusProps {
   selectTypeTask: FiltersTypeEntity;

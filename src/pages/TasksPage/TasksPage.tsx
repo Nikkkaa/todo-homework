@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { PageContainer } from 'components/index';
 import { PATH_LIST } from 'constants/index';
 import { Tasks } from 'modules/index';
@@ -12,9 +12,9 @@ export function TasksPage() {
         TODO LIST
       </Typography>
       <Tasks />
-      <Link className="btn btn-secondary d-block ml-auto" to={PATH_LIST.ADD}>
+      <Button component={Link} to={PATH_LIST.ADD} variant="contained" color="primary">
         Добавить задачу
-      </Link>
+      </Button>
     </PageContainer>
   );
 }

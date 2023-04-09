@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { Typography } from '@material-ui/core';
 import { StyledBox, StyledText } from './TaskStats.styles';
 import { TaskStoreInstance } from 'modules/Tasks/store/index';
-import { Loader } from 'components/index';
+import { LoaderStyled } from 'components/index';
 
 export function TasksStatsProto() {
   const { isTasksLoading, tasksStats } = TaskStoreInstance;
@@ -14,21 +14,21 @@ export function TasksStatsProto() {
         <>
           <Typography variant="body1">
             Все:
-            <Loader isLoading={isTasksLoading}>
+            <LoaderStyled isLoading={isTasksLoading}>
               <StyledText>{tasksStats.total}</StyledText>
-            </Loader>
+            </LoaderStyled>
           </Typography>
           <Typography variant="body1">
             Важные:
-            <Loader isLoading={isTasksLoading}>
+            <LoaderStyled isLoading={isTasksLoading}>
               <StyledText>{tasksStats.important}</StyledText>
-            </Loader>
+            </LoaderStyled>
           </Typography>
           <Typography variant="body1">
             Выполненные:
-            <Loader isLoading={isTasksLoading}>
+            <LoaderStyled isLoading={isTasksLoading}>
               <StyledText>{tasksStats.done}</StyledText>
-            </Loader>
+            </LoaderStyled>
           </Typography>
         </>
       ) : (
