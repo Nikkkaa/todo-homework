@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TasksErrorModule } from 'modules/TasksError/TasksError.module';
+import { TasksErrorModule } from 'modules/TasksError/index';
 
 export function TasksError() {
   return <TasksErrorModule />;
