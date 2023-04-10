@@ -2,7 +2,7 @@ import React from 'react';
 import { computed, makeObservable, observable, action } from 'mobx';
 import { SearchFormEntity, TaskEntity, TasksStatsEntity } from 'domains/index';
 import { getInternalStats, mapToExternalParam, mapToExternalTasks } from 'helpers/index';
-import { TaskAgentInstance } from 'http/agent/index';
+import { TaskAgentInstance } from 'http/index';
 
 type PrivateFields = '_tasks' | '_tasksStats' | '_isTasksLoading' | '_searchForm';
 

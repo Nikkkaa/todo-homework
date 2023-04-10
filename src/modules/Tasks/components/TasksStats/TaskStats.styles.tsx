@@ -1,12 +1,5 @@
 import styled from '@emotion/styled';
-import { Box, Typography } from '@material-ui/core';
-
-export const StyledBox = styled(Box)`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 16px;
-`;
+import { Typography } from '@material-ui/core';
 
 export const StyledText = styled(Typography)`
   display: inline-block;

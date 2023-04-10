@@ -61,76 +61,74 @@ function TaskEditModuleProto() {
   const isImportant = watch('isCompleted');
 
   return (
-    <>
-      <Stack spacing={1}>
-        <Controller
-          control={control}
-          name="name"
-          render={({ field, fieldState: { error } }) => (
-            <TextFieldStyled
-              label="Имя задачи"
-              placeholder="Напишите имя задачи"
-              containerClassName="text-field"
-              value={field.value}
-              onChange={changeTaskNameValue}
-              errorText={error?.message}
-            />
-          )}></Controller>
+    <Stack spacing={1}>
+      <Controller
+        control={control}
+        name="name"
+        render={({ field, fieldState: { error } }) => (
+          <TextFieldStyled
+            label="Имя задачи"
+            placeholder="Напишите имя задачи"
+            containerClassName="text-field"
+            value={field.value}
+            onChange={changeTaskNameValue}
+            errorText={error?.message}
+          />
+        )}></Controller>
 
-        <Controller
-          control={control}
-          name="info"
-          render={({ field, fieldState: { error } }) => (
-            <TextFieldStyled
-              label="Описание задачи"
-              placeholder="Напишите описание задачи"
-              containerClassName="text-field"
-              value={field.value}
-              onChange={changeTaskDescriptionValue}
-              errorText={error?.message}
-            />
-          )}></Controller>
+      <Controller
+        control={control}
+        name="info"
+        render={({ field, fieldState: { error } }) => (
+          <TextFieldStyled
+            label="Описание задачи"
+            placeholder="Напишите описание задачи"
+            containerClassName="text-field"
+            value={field.value}
+            onChange={changeTaskDescriptionValue}
+            errorText={error?.message}
+          />
+        )}></Controller>
 
-        <Controller
-          control={control}
-          name="isImportant"
-          render={({ field }) => (
-            <CheckboxStyled
-              color="primary"
-              label="Важная"
-              onChange={changeIsImportant}
-              disabled={isImportant}
-              checked={field.value}
-            />
-          )}></Controller>
+      <Controller
+        control={control}
+        name="isImportant"
+        render={({ field }) => (
+          <CheckboxStyled
+            color="primary"
+            label="Важная"
+            onChange={changeIsImportant}
+            disabled={isImportant}
+            checked={field.value}
+          />
+        )}></Controller>
 
-        <Controller
-          control={control}
-          name="isCompleted"
-          render={({ field }) => (
-            <CheckboxStyled
-              color="primary"
-              label="Выполненная"
-              onChange={changeIsDone}
-              disabled={isDone}
-              checked={field.value}
-            />
-          )}></Controller>
+      <Controller
+        control={control}
+        name="isCompleted"
+        render={({ field }) => (
+          <CheckboxStyled
+            color="primary"
+            label="Выполненная"
+            onChange={changeIsDone}
+            disabled={isDone}
+            checked={field.value}
+          />
+        )}></Controller>
 
-        <ButtonStyled
-          disabled={TaskEditStoreInstance.isTasksLoading}
-          fullWidth={true}
-          variant="contained"
-          color="primary"
-          onClick={changeIsTask}>
-          <LoaderStyled isLoading={TaskEditStoreInstance.isTasksLoading}>Изменить задачу</LoaderStyled>
-        </ButtonStyled>
+      <ButtonStyled
+        disabled={TaskEditStoreInstance.isTasksLoading}
+        fullWidth={true}
+        variant="contained"
+        color="primary"
+        onClick={changeIsTask}>
+        <LoaderStyled isLoading={TaskEditStoreInstance.isTasksLoading}>Изменить задачу</LoaderStyled>
+      </ButtonStyled>
 
-        <Button fullWidth={true} component={Link} to={PATH_LIST.ROOT} variant="contained" color="info">
-          Вернуться на главную
-        </Button>
-      </Stack>
-    </>
+      <Button fullWidth={true} component={Link} to={PATH_LIST.ROOT} variant="contained" color="info">
+        Вернуться на главную
+      </Button>
+    </Stack>
   );
 }
 

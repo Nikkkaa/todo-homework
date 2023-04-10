@@ -1,7 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Typography } from '@material-ui/core';
-import { StyledBox, StyledText } from './TaskStats.styles';
+import { Box, Stack } from '@mui/system';
+import { StyledText } from './TaskStats.styles';
 import { TaskStoreInstance } from 'modules/Tasks/store/index';
 import { LoaderStyled } from 'components/index';
 
@@ -9,7 +10,7 @@ export function TasksStatsProto() {
   const { isTasksLoading, tasksStats } = TaskStoreInstance;
 
   return (
-    <StyledBox>
+    <Stack flexDirection="row" justifyContent="space-between" mb="16px" width="100%">
       {tasksStats ? (
         <>
           <Typography variant="body1">
@@ -32,11 +33,11 @@ export function TasksStatsProto() {
           </Typography>
         </>
       ) : (
-        <StyledBox>
+        <Box>
           <Typography variant="body1">Статистика не доступна</Typography>
-        </StyledBox>
+        </Box>
       )}
-    </StyledBox>
+    </Stack>
   );
 }
 
