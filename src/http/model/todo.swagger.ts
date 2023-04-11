@@ -140,7 +140,6 @@ export interface paths {
       requestBody: {
         content: {
           'application/json': {
-            isCompleted?: boolean;
             isImportant?: boolean;
             name?: string;
             info?: string;
